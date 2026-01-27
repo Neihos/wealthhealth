@@ -4,11 +4,11 @@ import AppRouter from "./router/AppRouter";
 
 function App() {
   return (
-    <>
+    <main>
       <Provider store={store}>
         <AppRouter />
       </Provider>
-    </>
+    </main>
   );
 }
 

@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+}
+
+.siteHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+}
+.siteHeader img {
+  height: 100px;
+}
+.siteHeader .linkHeader {
+  width: 80px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.siteHeader .linkHeader a {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: end;
+  color: green;
+}
+.siteHeader .linkHeader a:hover {
+  color: rgb(41, 68, 0);
+}
+
+@media (min-width: 768px) {
+  .siteHeader {
+    padding: 20px 40px;
+  }
+  .siteHeader img {
+    height: 160px;
+  }
+  .siteHeader .linkHeader {
+    width: 210px;
+  }
+  .siteHeader .linkHeader a {
+    font-size: 22px;
+  }
+}

@@ -14,7 +14,7 @@ export default function Header() {
         {isHome ? (
           <Link to="/employees">☰ Current employees</Link>
         ) : (
-          <Link to="/">+ add employee</Link>
+          <Link to="/">+ Create employee</Link>
         )}
       </div>
     </header>
