@@ -1,0 +1,118 @@
+#employee-div {
+  display: flex;
+  width: 100%;
+  min-height: calc(100vh - 140px);
+  justify-content: center;
+  align-items: start;
+  background: linear-gradient(90deg, rgb(42, 123, 155) 0%, rgb(0, 217, 90) 100%, rgb(237, 221, 83) 100%);
+}
+#employee-div .employees-table {
+  width: 100%;
+  max-width: 1200px;
+  background-color: white;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+  border-spacing: 0;
+  /* MOBILE: tout en blocs */
+}
+#employee-div .employees-table caption {
+  margin-bottom: 16px;
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+  color: white;
+}
+#employee-div .employees-table thead {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+#employee-div .employees-table tbody,
+#employee-div .employees-table tr,
+#employee-div .employees-table th,
+#employee-div .employees-table td {
+  display: block;
+  padding: 0;
+  text-align: left;
+  white-space: normal;
+}
+#employee-div .employees-table tbody tr {
+  margin-bottom: 16px;
+  border: 1px solid rgb(134, 188, 37);
+  background-color: rgb(255, 255, 255);
+}
+#employee-div .employees-table td {
+  padding: 10px;
+  text-align: right;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+#employee-div .employees-table td:last-child {
+  border-bottom: 0;
+}
+#employee-div .employees-table td[data-title]::before {
+  content: attr(data-title);
+  float: left;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+}
+@media (min-width: 768px) {
+  #employee-div #employee-div {
+    min-height: calc(100vh - 200px);
+  }
+  #employee-div .employees-table {
+    font-size: 16px;
+    padding: 0;
+    border-radius: unset;
+  }
+  #employee-div .employees-table caption {
+    padding: 50px;
+    font-size: 48px;
+  }
+  #employee-div .employees-table thead {
+    position: relative;
+    clip: auto;
+    height: auto;
+    width: auto;
+    overflow: visible;
+  }
+  #employee-div .employees-table thead th {
+    background-color: rgb(38, 137, 13);
+    border: 1px solid rgb(134, 188, 37);
+    font-weight: normal;
+    text-align: center;
+    color: white;
+    padding: 10px;
+  }
+  #employee-div .employees-table tbody {
+    display: table-row-group;
+  }
+  #employee-div .employees-table tbody td {
+    text-align: center;
+    border-left: 1px solid rgb(134, 188, 37);
+    border-bottom: 1px solid rgb(134, 188, 37);
+  }
+  #employee-div .employees-table tbody td:last-child {
+    border-right: 1px solid rgb(134, 188, 37);
+    border-bottom: 1px solid rgb(134, 188, 37);
+  }
+  #employee-div .employees-table tbody tr:nth-of-type(even) {
+    background-color: rgba(0, 143, 7, 0.12);
+  }
+  #employee-div .employees-table tr {
+    display: table-row;
+  }
+  #employee-div .employees-table td,
+  #employee-div .employees-table th {
+    display: table-cell;
+    padding: 10px;
+    vertical-align: middle;
+  }
+  #employee-div .employees-table td[data-title]::before {
+    content: none;
+  }
+}
