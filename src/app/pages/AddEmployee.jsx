@@ -143,7 +143,7 @@ export default function AddEmployee() {
                 Select a state
               </option>
               {states.map((state) => (
-                <option key={state.abbreviation} value={state.abbreviation}>
+                <option key={state.abbreviation} value={state.name}>
                   {state.name}
                 </option>
               ))}
