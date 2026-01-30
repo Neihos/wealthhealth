@@ -11,15 +11,18 @@
     rgba(0, 217, 90, 1) 100%,
     rgba(237, 221, 83, 1) 100%
   );
+
   #create-employee {
     display: flex;
     flex-direction: column;
+    align-items: center;
     text-align: center;
     background-color: white;
     font-size: 16px;
     border-radius: 15px;
     box-shadow: 0 32px 32px 0 rgba(0, 0, 0, 0.4);
     margin: 50px;
+    padding-bottom: 30px;
 
     h2 {
       color: green;
@@ -53,8 +56,33 @@
       &__address {
         display: flex;
         flex-direction: column;
+        max-width: 288px;
+        min-width: 0;
+        box-sizing: border-box;
         gap: 10px;
       }
+    }
+
+    .buttonAddEmployee {
+      width: 130px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      text-shadow: 2px 1px 2px white;
+      color: green;
+      border: 1px solid rgb(197, 197, 197);
+      border-radius: 25px;
+      padding: 10px 25px;
+      font-weight: 700;
+      cursor: pointer;
+      background-image: linear-gradient(315deg, #4dcc7e 0%, #96e4df 74%);
+      box-shadow:
+        inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+        7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+        4px 4px 5px 0px rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -63,7 +91,7 @@
   .addEmployee {
     min-height: calc(100vh - 200px);
 
-    #create-employee,
+    #create-employee, #create-employee .buttonAddEmployee,
     #department,
     input,
     #state {
@@ -73,6 +101,10 @@
     #create-employee {
       h2 {
         padding-bottom: 50px;
+      }
+      .buttonAddEmployee:hover {
+        background-image: linear-gradient(315deg, #2ec066 0%, #4bcec5 74%);
+        color: rgb(75, 99, 41);
       }
     }
 

@@ -1,6 +1,8 @@
 import "../../assets/styles/AddEmployee.scss";
 import { states } from "../../data/states";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addEmployee } from "../store/employeesSlice";
 
 export default function AddEmployee() {
   const [formData, setFormData] = useState({
@@ -23,9 +25,35 @@ export default function AddEmployee() {
     }));
   };
 
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const employee = {
+      id: crypto.randomUUID(),
+      ...formData,
+    };
+
+    dispatch(addEmployee(employee));
+
+    setFormData({
+      firstName: "",
+      lastName: "",
+      birthDate: "",
+      startDate: "",
+      department: "",
+      street: "",
+      city: "",
+      state: "",
+      zipCode: "",
+    });
+  };
+
+
   return (
     <div className="addEmployee">
-      <form id="create-employee">
+      <form id="create-employee" onSubmit={handleSubmit}>
         <h2>Enter the new employee’s information</h2>
         <div className="create-employee-container">
           <div className="create-employee-container__infos">
@@ -132,6 +160,9 @@ export default function AddEmployee() {
             />
           </fieldset>
         </div>
+
+        <button type="submit" className="buttonAddEmployee">Save</button>
+
       </form>
     </div>
   );
