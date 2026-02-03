@@ -4,12 +4,24 @@
   min-height: calc(100vh - 140px);
   justify-content: center;
   align-items: start;
+  position: relative;
   background: linear-gradient(
     90deg,
     rgba(42, 123, 155, 1) 0%,
     rgba(0, 217, 90, 1) 100%,
     rgba(237, 221, 83, 1) 100%
   );
+
+  #employee-searchBar {
+    position: absolute;
+    top: 70px;
+    border-radius: 10px;
+    border: none;
+    box-shadow:
+      inset 2px 2px 5px #babecc,
+      inset -5px -5px 10px #fff;
+    padding: 5px 10px 5px 10px;
+  }
 
   .employees-table {
     width: 100%;
@@ -21,7 +33,7 @@
     border-spacing: 0;
 
     caption {
-      margin-bottom: 16px;
+      margin-bottom: 70px;
       font-size: 22px;
       font-weight: 800;
       text-align: center;
@@ -77,6 +89,11 @@
     #employee-div {
       min-height: calc(100vh - 200px);
     }
+
+    #employee-searchBar {
+      top: 170px;
+    }
+    
     .employees-table {
       font-size: 16px;
       padding: 0;

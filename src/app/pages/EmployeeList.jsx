@@ -1,11 +1,34 @@
 import { useSelector } from "react-redux";
 import "../../assets/styles/EmployeeList.scss";
+import { useState } from "react";
 
 export default function EmployeeList() {
   const userlist = useSelector((state) => state.employees.list);
+  const [search, setSearch] = useState("");
+
+  const filteredEmployees = userlist.filter((employee) => {
+    const query = search.trim().toLowerCase();
+
+    if (query.length < 2) {
+      return true;
+    }
+
+    const firstName = employee.firstName?.toLowerCase() || "";
+    const lastName = employee.lastName?.toLowerCase() || "";
+
+    return firstName.startsWith(query) || lastName.startsWith(query);
+  });
 
   return (
     <div id="employee-div" className="container">
+      <input
+        id="employee-searchBar"
+        type="text"
+        placeholder="Search by first or last name"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
       <table className="employees-table">
         <caption>Current Employees</caption>
 
@@ -24,7 +47,7 @@ export default function EmployeeList() {
         </thead>
 
         <tbody>
-          {userlist.map((employee) => (
+          {filteredEmployees.map((employee) => (
             <tr key={employee.id}>
               <td data-title="Last Name">{employee.lastName}</td>
               <td data-title="First Name">{employee.firstName}</td>
