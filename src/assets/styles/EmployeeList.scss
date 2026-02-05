@@ -23,6 +23,38 @@
     padding: 5px 10px 5px 10px;
   }
 
+  .searchButton {
+    position: absolute;
+    top: 105px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 5px;
+    max-width: 440px;
+    justify-content: center;
+    align-items: center;
+
+    &__button {
+      border-radius: 25px;
+      padding: 5px 10px;
+      width: 112px;
+    }
+
+    &__button.is-active.asc::after {
+      content: "▴";
+    }
+
+    &__button.is-active.desc::after {
+      content: "▾";
+    }
+
+    span {
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      color: #fff;
+    }
+  }
+
   .employees-table {
     width: 100%;
     max-width: 1200px;
@@ -33,7 +65,7 @@
     border-spacing: 0;
 
     caption {
-      margin-bottom: 70px;
+      margin-bottom: 200px;
       font-size: 22px;
       font-weight: 800;
       text-align: center;
@@ -84,16 +116,20 @@
       }
     }
   }
-
-  @media (min-width: 768px) {
-    #employee-div {
-      min-height: calc(100vh - 200px);
-    }
+}
+@media (min-width: 768px) {
+  #employee-div {
+    min-height: calc(100vh - 200px);
+    padding-bottom: 80px;
 
     #employee-searchBar {
       top: 170px;
     }
-    
+
+    .searchButton {
+      display: none;
+    }
+
     .employees-table {
       font-size: 16px;
       padding: 0;
@@ -102,6 +138,7 @@
       caption {
         padding: 50px;
         font-size: 48px;
+        margin-bottom: 80px;
       }
 
       thead {
@@ -111,13 +148,27 @@
         width: auto;
         overflow: visible;
 
-        th {
+        .listName {
           background-color: rgba(38, 137, 13, 1);
           border: 1px solid rgba(134, 188, 37, 1);
           font-weight: normal;
           text-align: center;
           color: white;
           padding: 10px;
+          cursor: pointer;
+        }
+
+        .listName.is-active.asc::after {
+          content: " ↓";
+        }
+
+        .listName.is-active.desc::after {
+          content: " ↑";
+        }
+
+        .listName.not-active::after {
+          content: " ⇅";
+          opacity: 0.4;
         }
       }
 
