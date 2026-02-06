@@ -6,15 +6,8 @@
   justify-content: center;
   align-items: start;
   position: relative;
+  padding-bottom: 50px;
   background: linear-gradient(90deg, rgb(42, 123, 155) 0%, rgb(0, 217, 90) 100%, rgb(237, 221, 83) 100%);
-}
-#employee-div #employee-searchBar {
-  position: absolute;
-  top: 70px;
-  border-radius: 10px;
-  border: none;
-  box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
-  padding: 5px 10px 5px 10px;
 }
 #employee-div .searchButton {
   position: absolute;
@@ -78,6 +71,26 @@
   text-align: left;
   white-space: normal;
 }
+#employee-div .employees-table tbody {
+  position: relative;
+}
+#employee-div .employees-table tbody #employee-searchBar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -200px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
+  padding: 5px 10px 5px 10px;
+}
+#employee-div .employees-table tbody .pagination {
+  position: absolute;
+  bottom: -80px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
 #employee-div .employees-table tbody tr {
   margin-bottom: 16px;
   border: 1px solid rgb(134, 188, 37);
@@ -100,11 +113,8 @@
 
 @media (min-width: 768px) {
   #employee-div {
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 280px);
     padding-bottom: 80px;
-  }
-  #employee-div #employee-searchBar {
-    top: 170px;
   }
   #employee-div .searchButton {
     display: none;
@@ -147,6 +157,12 @@
   }
   #employee-div .employees-table tbody {
     display: table-row-group;
+  }
+  #employee-div .employees-table tbody #employee-searchBar {
+    top: -130px;
+  }
+  #employee-div .employees-table tbody .pagination {
+    bottom: -50px;
   }
   #employee-div .employees-table tbody td {
     text-align: center;

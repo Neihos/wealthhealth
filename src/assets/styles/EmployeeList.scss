@@ -5,23 +5,13 @@
   justify-content: center;
   align-items: start;
   position: relative;
+  padding-bottom: 50px;
   background: linear-gradient(
     90deg,
     rgba(42, 123, 155, 1) 0%,
     rgba(0, 217, 90, 1) 100%,
     rgba(237, 221, 83, 1) 100%
   );
-
-  #employee-searchBar {
-    position: absolute;
-    top: 70px;
-    border-radius: 10px;
-    border: none;
-    box-shadow:
-      inset 2px 2px 5px #babecc,
-      inset -5px -5px 10px #fff;
-    padding: 5px 10px 5px 10px;
-  }
 
   .searchButton {
     position: absolute;
@@ -55,155 +45,204 @@
     }
   }
 
-  .employees-table {
+  .tableContainer {
+    position: relative;
     width: 100%;
-    max-width: 1200px;
-    background-color: white;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 5px;
-    border-spacing: 0;
+    display: flex;
+    justify-content: center;
 
-    caption {
-      margin-bottom: 200px;
-      font-size: 22px;
-      font-weight: 800;
-      text-align: center;
-      color: white;
-    }
-
-    thead {
+    #employee-searchBar {
       position: absolute;
-      clip: rect(1px, 1px, 1px, 1px);
-      padding: 0;
-      border: 0;
-      height: 1px;
-      width: 1px;
-      overflow: hidden;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 60px;
+      border-radius: 10px;
+      border: none;
+      box-shadow:
+        inset 2px 2px 5px #babecc,
+        inset -5px -5px 10px #fff;
+      padding: 5px 10px 5px 10px;
     }
 
-    /* MOBILE: tout en blocs */
-    tbody,
-    tr,
-    th,
-    td {
-      display: block;
-      padding: 0;
-      text-align: left;
-      white-space: normal;
-    }
+    .employees-table {
+      width: 100%;
+      max-width: 1200px;
+      background-color: white;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 5px;
+      border-spacing: 0;
 
-    tbody tr {
-      margin-bottom: 16px;
-      border: 1px solid rgba(134, 188, 37, 1);
-      background-color: rgba(255, 255, 255, 1);
-    }
-
-    td {
-      padding: 10px;
-      text-align: right;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-
-      &:last-child {
-        border-bottom: 0;
+      caption {
+        margin-bottom: 200px;
+        font-size: 22px;
+        font-weight: 800;
+        text-align: center;
+        color: white;
       }
 
-      &[data-title]::before {
-        content: attr(data-title);
-        float: left;
-        font-size: 14px;
-        color: rgba(0, 0, 0, 0.54);
+      thead {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+        padding: 0;
+        border: 0;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+      }
+
+      /* MOBILE: tout en blocs */
+      tbody,
+      tr,
+      th,
+      td {
+        display: block;
+        padding: 0;
+        text-align: left;
+        white-space: normal;
+      }
+
+      tbody {
+        position: relative;
+
+        tr {
+          margin-bottom: 16px;
+          border: 1px solid rgba(134, 188, 37, 1);
+          background-color: rgba(255, 255, 255, 1);
+        }
+      }
+
+      td {
+        padding: 10px;
+        text-align: right;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+        &:last-child {
+          border-bottom: 0;
+        }
+
+        &[data-title]::before {
+          content: attr(data-title);
+          float: left;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.54);
+        }
+      }
+    }
+
+    .pagination {
+      position: absolute;
+      bottom: -20px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+
+      button {
+        border-radius: 10px;
+        border: none;
+        box-shadow:
+          inset 2px 2px 5px #babecc,
+          inset -5px -5px 10px #fff;
+        margin: 0 10px;
+        padding: 5px 10px;
+        cursor: pointer;
       }
     }
   }
 }
+
 @media (min-width: 768px) {
   #employee-div {
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 280px);
     padding-bottom: 80px;
-
-    #employee-searchBar {
-      top: 170px;
-    }
 
     .searchButton {
       display: none;
     }
-
-    .employees-table {
-      font-size: 16px;
-      padding: 0;
-      border-radius: unset;
-
-      caption {
-        padding: 50px;
-        font-size: 48px;
-        margin-bottom: 80px;
+    .tableContainer {
+      #employee-searchBar {
+        top: 170px;
       }
 
-      thead {
-        position: relative;
-        clip: auto;
-        height: auto;
-        width: auto;
-        overflow: visible;
+      .employees-table {
+        font-size: 16px;
+        padding: 0;
+        border-radius: unset;
 
-        .listName {
-          background-color: rgba(38, 137, 13, 1);
-          border: 1px solid rgba(134, 188, 37, 1);
-          font-weight: normal;
-          text-align: center;
-          color: white;
-          padding: 10px;
-          cursor: pointer;
+        caption {
+          padding: 50px;
+          font-size: 48px;
+          margin-bottom: 80px;
         }
 
-        .listName.is-active.asc::after {
-          content: " ↓";
-        }
+        thead {
+          position: relative;
+          clip: auto;
+          height: auto;
+          width: auto;
+          overflow: visible;
 
-        .listName.is-active.desc::after {
-          content: " ↑";
-        }
+          .listName {
+            background-color: rgba(38, 137, 13, 1);
+            border: 1px solid rgba(134, 188, 37, 1);
+            font-weight: normal;
+            text-align: center;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+          }
 
-        .listName.not-active::after {
-          content: " ⇅";
-          opacity: 0.4;
-        }
-      }
+          .listName.is-active.asc::after {
+            content: " ↓";
+          }
 
-      tbody {
-        display: table-row-group;
+          .listName.is-active.desc::after {
+            content: " ↑";
+          }
 
-        td {
-          text-align: center;
-          border-left: 1px solid rgba(134, 188, 37, 1);
-          border-bottom: 1px solid rgba(134, 188, 37, 1);
-
-          &:last-child {
-            border-right: 1px solid rgba(134, 188, 37, 1);
-            border-bottom: 1px solid rgba(134, 188, 37, 1);
+          .listName.not-active::after {
+            content: " ⇅";
+            opacity: 0.4;
           }
         }
 
-        tr:nth-of-type(even) {
-          background-color: rgba(0, 143, 7, 0.12);
+        tbody {
+          display: table-row-group;
+
+          td {
+            text-align: center;
+            border-left: 1px solid rgba(134, 188, 37, 1);
+            border-bottom: 1px solid rgba(134, 188, 37, 1);
+
+            &:last-child {
+              border-right: 1px solid rgba(134, 188, 37, 1);
+              border-bottom: 1px solid rgba(134, 188, 37, 1);
+            }
+          }
+
+          tr:nth-of-type(even) {
+            background-color: rgba(0, 143, 7, 0.12);
+          }
+        }
+
+        tr {
+          display: table-row;
+        }
+
+        td,
+        th {
+          display: table-cell;
+          padding: 10px;
+          vertical-align: middle;
+        }
+
+        td[data-title]::before {
+          content: none;
         }
       }
 
-      tr {
-        display: table-row;
-      }
-
-      td,
-      th {
-        display: table-cell;
-        padding: 10px;
-        vertical-align: middle;
-      }
-
-      td[data-title]::before {
-        content: none;
+      .pagination {
+        bottom: -50px;
       }
     }
   }

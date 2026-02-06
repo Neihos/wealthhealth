@@ -1,12 +1,17 @@
 import { useSelector } from "react-redux";
 import "../../assets/styles/EmployeeList.scss";
 import { useState } from "react";
+import FilterButton from "../components/employeeList/FilterButton";
+import TableTh from "../components/employeeList/TableTh";
 
 export default function EmployeeList() {
   const userlist = useSelector((state) => state.employees.list);
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState(null);
   const [sortDir, setSortDir] = useState("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 10;
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
 
   // Define sort type for each sortable column
   const sortTypeByKey = {
@@ -37,6 +42,8 @@ export default function EmployeeList() {
 
   // Handle column sorting (toggle asc / desc)
   const handleSort = (key) => {
+    setCurrentPage(1);
+
     if (sortKey === key) {
       setSortDir((prev) => (prev === "asc" ? "desc" : "asc"));
     } else {
@@ -44,6 +51,7 @@ export default function EmployeeList() {
       setSortDir("asc");
     }
   };
+
 
   // Compare two text values
   const compareText = (a, b) => {
@@ -86,236 +94,206 @@ export default function EmployeeList() {
     return sortDir === "asc" ? result : -result;
   });
 
+  // Make pagination
+  const pagedEmployees = sortedEmployees.slice(
+    startIndex,
+    startIndex + PAGE_SIZE,
+  );
+
+  const totalPages = Math.ceil(sortedEmployees.length / PAGE_SIZE);
+
   return (
     <div id="employee-div" className="container">
-      <input
-        id="employee-searchBar"
-        type="text"
-        placeholder="Search by first or last name"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
       <div className="searchButton">
         <span>Sort by :</span>
-        <button
-          type="button"
-          className={
-            "searchButton__button" +
-            (sortKey === "lastName" ? ` is-active ${sortDir}` : "")
-          }
-          onClick={() => handleSort("lastName")}
-        >
-          Last Name
-        </button>
-        <button
-          type="button"
-          className={
-            "searchButton__button" +
-            (sortKey === "firstName" ? ` is-active ${sortDir}` : "")
-          }
-          onClick={() => handleSort("firstName")}
-        >
-          First Name
-        </button>
-        <button
-          type="button"
-          className={
-            "searchButton__button" +
-            (sortKey === "startDate" ? ` is-active ${sortDir}` : "")
-          }
-          onClick={() => handleSort("startDate")}
-        >
-          Start Date
-        </button>
-        <button
-          type="button"
-          className={
-            "searchButton__button" +
-            (sortKey === "department" ? ` is-active ${sortDir}` : "")
-          }
-          onClick={() => handleSort("department")}
-        >
-          Department
-        </button>
-        <button
-          type="button"
-          className={
-            "searchButton__button" +
-            (sortKey === "birthDate" ? ` is-active ${sortDir}` : "")
-          }
-          onClick={() => handleSort("birthDate")}
-        >
-          Date Of Birth
-        </button>
-        <button
-          type="button"
-          className={
-            "searchButton__button" +
-            (sortKey === "street" ? ` is-active ${sortDir}` : "")
-          }
-          onClick={() => handleSort("street")}
-        >
-          Street
-        </button>
-        <button
-          type="button"
-          className={
-            "searchButton__button" +
-            (sortKey === "city" ? ` is-active ${sortDir}` : "")
-          }
-          onClick={() => handleSort("city")}
-        >
-          City
-        </button>
-        <button
-          type="button"
-          className={
-            "searchButton__button" +
-            (sortKey === "state" ? ` is-active ${sortDir}` : "")
-          }
-          onClick={() => handleSort("state")}
-        >
-          State
-        </button>
-        <button
-          type="button"
-          className={
-            "searchButton__button" +
-            (sortKey === "zipCode" ? ` is-active ${sortDir}` : "")
-          }
-          onClick={() => handleSort("zipCode")}
-        >
-          Zip Code
-        </button>
+
+        <FilterButton
+          label="Last Name"
+          sortKeyName="lastName"
+          activeSortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+        />
+        <FilterButton
+          label="First Name"
+          sortKeyName="firstName"
+          activeSortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+        />
+        <FilterButton
+          label="Start Date"
+          sortKeyName="startDate"
+          activeSortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+        />
+        <FilterButton
+          label="Department"
+          sortKeyName="department"
+          activeSortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+        />
+        <FilterButton
+          label="Date Of Birth"
+          sortKeyName="birthDate"
+          activeSortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+        />
+        <FilterButton
+          label="Street"
+          sortKeyName="street"
+          activeSortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+        />
+        <FilterButton
+          label="City"
+          sortKeyName="city"
+          activeSortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+        />
+        <FilterButton
+          label="State"
+          sortKeyName="state"
+          activeSortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+        />
+        <FilterButton
+          label="Zip Code"
+          sortKeyName="zipCode"
+          activeSortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+        />
       </div>
 
-      <table className="employees-table">
-        <caption>Current Employees</caption>
+      <div className="tableContainer">
+        <input
+          id="employee-searchBar"
+          type="text"
+          placeholder="Search by first or last name"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1);
+          }}
+        />
 
-        <thead>
-          <tr>
-            <th
-              scope="col"
-              className={
-                "listName" +
-                (sortKey === "lastName"
-                  ? ` is-active ${sortDir}`
-                  : " not-active")
-              }
-              onClick={() => handleSort("lastName")}
-            >
-              Last Name
-            </th>
-            <th
-              scope="col"
-              className={
-                "listName" +
-                (sortKey === "firstName"
-                  ? ` is-active ${sortDir}`
-                  : " not-active")
-              }
-              onClick={() => handleSort("firstName")}
-            >
-              First Name
-            </th>
-            <th
-              scope="col"
-              className={
-                "listName" +
-                (sortKey === "startDate"
-                  ? ` is-active ${sortDir}`
-                  : " not-active")
-              }
-              onClick={() => handleSort("startDate")}
-            >
-              Start Date
-            </th>
-            <th
-              scope="col"
-              className={
-                "listName" +
-                (sortKey === "department"
-                  ? ` is-active ${sortDir}`
-                  : " not-active")
-              }
-              onClick={() => handleSort("department")}
-            >
-              Department
-            </th>
-            <th
-              scope="col"
-              className={
-                "listName" +
-                (sortKey === "birthDate"
-                  ? ` is-active ${sortDir}`
-                  : " not-active")
-              }
-              onClick={() => handleSort("birthDate")}
-            >
-              Date of Birth
-            </th>
-            <th
-              scope="col"
-              className={
-                "listName" +
-                (sortKey === "street" ? ` is-active ${sortDir}` : " not-active")
-              }
-              onClick={() => handleSort("street")}
-            >
-              Street
-            </th>
-            <th
-              scope="col"
-              className={
-                "listName" +
-                (sortKey === "city" ? ` is-active ${sortDir}` : " not-active")
-              }
-              onClick={() => handleSort("city")}
-            >
-              City
-            </th>
-            <th
-              scope="col"
-              className={
-                "listName" +
-                (sortKey === "state" ? ` is-active ${sortDir}` : " not-active")
-              }
-              onClick={() => handleSort("state")}
-            >
-              State
-            </th>
-            <th
-              scope="col"
-              className={
-                "listName" +
-                (sortKey === "zipCode"
-                  ? ` is-active ${sortDir}`
-                  : " not-active")
-              }
-              onClick={() => handleSort("zipCode")}
-            >
-              Zip Code
-            </th>
-          </tr>
-        </thead>
+        <table className="employees-table">
+          <caption>Current Employees</caption>
 
-        <tbody>
-          {sortedEmployees.map((employee) => (
-            <tr key={employee.id}>
-              <td data-title="Last Name">{employee.lastName}</td>
-              <td data-title="First Name">{employee.firstName}</td>
-              <td data-title="Start Date">{employee.startDate}</td>
-              <td data-title="Department">{employee.department}</td>
-              <td data-title="Date of Birth">{employee.birthDate}</td>
-              <td data-title="Street">{employee.street}</td>
-              <td data-title="City">{employee.city}</td>
-              <td data-title="State">{employee.state}</td>
-              <td data-title="Zip Code">{employee.zipCode}</td>
+          <thead>
+            <tr>
+              <TableTh
+                label="Last Name"
+                sortKeyName="lastName"
+                activeSortKey={sortKey}
+                sortDir={sortDir}
+                onSort={handleSort}
+              />
+              <TableTh
+                label="First Name"
+                sortKeyName="firstName"
+                activeSortKey={sortKey}
+                sortDir={sortDir}
+                onSort={handleSort}
+              />
+              <TableTh
+                label="Start Date"
+                sortKeyName="startDate"
+                activeSortKey={sortKey}
+                sortDir={sortDir}
+                onSort={handleSort}
+              />
+              <TableTh
+                label="Departement"
+                sortKeyName="department"
+                activeSortKey={sortKey}
+                sortDir={sortDir}
+                onSort={handleSort}
+              />
+              <TableTh
+                label="Date Of Birth"
+                sortKeyName="birthDate"
+                activeSortKey={sortKey}
+                sortDir={sortDir}
+                onSort={handleSort}
+              />
+              <TableTh
+                label="Street"
+                sortKeyName="street"
+                activeSortKey={sortKey}
+                sortDir={sortDir}
+                onSort={handleSort}
+              />
+              <TableTh
+                label="City"
+                sortKeyName="city"
+                activeSortKey={sortKey}
+                sortDir={sortDir}
+                onSort={handleSort}
+              />
+              <TableTh
+                label="State"
+                sortKeyName="state"
+                activeSortKey={sortKey}
+                sortDir={sortDir}
+                onSort={handleSort}
+              />
+              <TableTh
+                label="Zip Code"
+                sortKeyName="zipCode"
+                activeSortKey={sortKey}
+                sortDir={sortDir}
+                onSort={handleSort}
+              />
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {pagedEmployees.map((employee) => (
+              <tr key={employee.id}>
+                <td data-title="Last Name">{employee.lastName}</td>
+                <td data-title="First Name">{employee.firstName}</td>
+                <td data-title="Start Date">{employee.startDate}</td>
+                <td data-title="Department">{employee.department}</td>
+                <td data-title="Date of Birth">{employee.birthDate}</td>
+                <td data-title="Street">{employee.street}</td>
+                <td data-title="City">{employee.city}</td>
+                <td data-title="State">{employee.state}</td>
+                <td data-title="Zip Code">{employee.zipCode}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="pagination">
+          <button
+            type="button"
+            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+
+          <span>
+            Page {currentPage} / {totalPages || 1}
+          </span>
+
+          <button
+            type="button"
+            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+            disabled={currentPage === totalPages || totalPages === 0}
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
