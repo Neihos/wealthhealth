@@ -15,7 +15,7 @@
 
   .searchButton {
     position: absolute;
-    top: 105px;
+    top: 150px;
     display: flex;
     flex-wrap: wrap;
     gap: 5px 5px;
@@ -46,106 +46,127 @@
   }
 
   .tableContainer {
-    position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
 
-    #employee-searchBar {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 60px;
-      border-radius: 10px;
-      border: none;
-      box-shadow:
-        inset 2px 2px 5px #babecc,
-        inset -5px -5px 10px #fff;
-      padding: 5px 10px 5px 10px;
-    }
-
-    .employees-table {
+    .tableWrap {
+      position: relative;
       width: 100%;
       max-width: 1200px;
-      background-color: white;
-      padding: 20px;
-      margin: 20px;
-      border-radius: 5px;
-      border-spacing: 0;
 
-      caption {
-        margin-bottom: 200px;
-        font-size: 22px;
-        font-weight: 800;
-        text-align: center;
-        color: white;
-      }
-
-      thead {
+      .employee-table-length {
         position: absolute;
-        clip: rect(1px, 1px, 1px, 1px);
-        padding: 0;
-        border: 0;
-        height: 1px;
-        width: 1px;
-        overflow: hidden;
+        top: 110px;
+        left: 0;
+        margin-left: 20px;
+        color: #fff;
       }
 
-      /* MOBILE: tout en blocs */
-      tbody,
-      tr,
-      th,
-      td {
-        display: block;
-        padding: 0;
-        text-align: left;
-        white-space: normal;
-      }
-
-      tbody {
-        position: relative;
-
-        tr {
-          margin-bottom: 16px;
-          border: 1px solid rgba(134, 188, 37, 1);
-          background-color: rgba(255, 255, 255, 1);
-        }
-      }
-
-      td {
-        padding: 10px;
-        text-align: right;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-
-        &:last-child {
-          border-bottom: 0;
-        }
-
-        &[data-title]::before {
-          content: attr(data-title);
-          float: left;
-          font-size: 14px;
-          color: rgba(0, 0, 0, 0.54);
-        }
-      }
-    }
-
-    .pagination {
-      position: absolute;
-      bottom: -20px;
-      width: 100%;
-      text-align: center;
-      color: #fff;
-
-      button {
+      #employee-searchBar {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: clamp(3.75rem, -1690rem + 5000vw, 6.875rem);
         border-radius: 10px;
         border: none;
         box-shadow:
           inset 2px 2px 5px #babecc,
           inset -5px -5px 10px #fff;
-        margin: 0 10px;
-        padding: 5px 10px;
-        cursor: pointer;
+        padding: 5px 10px 5px 10px;
+      }
+
+      .table-info {
+        position: absolute;
+        top: 110px;
+        right: 0;
+        margin-right: 20px;
+        color: #fff;
+      }
+
+      .employees-table {
+        width: calc(100% - 40px);
+        max-width: 1200px;
+        background-color: white;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 5px;
+        border-spacing: 0;
+
+        caption {
+          margin-bottom: 250px;
+          font-size: 22px;
+          font-weight: 800;
+          text-align: center;
+          color: white;
+        }
+
+        thead {
+          position: absolute;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 0;
+          border: 0;
+          height: 1px;
+          width: 1px;
+          overflow: hidden;
+        }
+
+        /* MOBILE: tout en blocs */
+        tbody,
+        tr,
+        th,
+        td {
+          display: block;
+          padding: 0;
+          text-align: left;
+          white-space: normal;
+        }
+
+        tbody {
+          position: relative;
+
+          tr {
+            margin-bottom: 16px;
+            border: 1px solid rgba(134, 188, 37, 1);
+            background-color: rgba(255, 255, 255, 1);
+          }
+        }
+
+        td {
+          padding: 10px;
+          text-align: right;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+          &:last-child {
+            border-bottom: 0;
+          }
+
+          &[data-title]::before {
+            content: attr(data-title);
+            float: left;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.54);
+          }
+        }
+      }
+
+      .pagination {
+        position: absolute;
+        bottom: -20px;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+
+        button {
+          border-radius: 10px;
+          border: none;
+          box-shadow:
+            inset 2px 2px 5px #babecc,
+            inset -5px -5px 10px #fff;
+          margin: 0 10px;
+          padding: 5px 10px;
+          cursor: pointer;
+        }
       }
     }
   }
@@ -159,9 +180,16 @@
     .searchButton {
       display: none;
     }
-    .tableContainer {
+    .tableContainer .tableWrap {
+      .employee-table-length {
+        top: 200px;
+      }
       #employee-searchBar {
-        top: 170px;
+        top: 160px;
+      }
+
+      .table-info {
+        top: 200px;
       }
 
       .employees-table {
@@ -245,5 +273,11 @@
         bottom: -50px;
       }
     }
+  }
+}
+
+@media (min-width: 1024px) {
+  #employee-div .tableContainer .tableWrap .employees-table th {
+    white-space: nowrap;
   }
 }

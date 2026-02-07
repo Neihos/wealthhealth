@@ -11,7 +11,7 @@
 }
 #employee-div .searchButton {
   position: absolute;
-  top: 105px;
+  top: 150px;
   display: flex;
   flex-wrap: wrap;
   gap: 5px 5px;
@@ -36,8 +36,42 @@
   font-size: 18px;
   color: #fff;
 }
-#employee-div .employees-table {
+#employee-div .tableContainer {
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+#employee-div .tableContainer .tableWrap {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+}
+#employee-div .tableContainer .tableWrap .employee-table-length {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  margin-left: 20px;
+  color: #fff;
+}
+#employee-div .tableContainer .tableWrap #employee-searchBar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: clamp(3.75rem, -1690rem + 5000vw, 6.875rem);
+  border-radius: 10px;
+  border: none;
+  box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
+  padding: 5px 10px 5px 10px;
+}
+#employee-div .tableContainer .tableWrap .table-info {
+  position: absolute;
+  top: 110px;
+  right: 0;
+  margin-right: 20px;
+  color: #fff;
+}
+#employee-div .tableContainer .tableWrap .employees-table {
+  width: calc(100% - 40px);
   max-width: 1200px;
   background-color: white;
   padding: 20px;
@@ -46,14 +80,14 @@
   border-spacing: 0;
   /* MOBILE: tout en blocs */
 }
-#employee-div .employees-table caption {
-  margin-bottom: 200px;
+#employee-div .tableContainer .tableWrap .employees-table caption {
+  margin-bottom: 250px;
   font-size: 22px;
   font-weight: 800;
   text-align: center;
   color: white;
 }
-#employee-div .employees-table thead {
+#employee-div .tableContainer .tableWrap .employees-table thead {
   position: absolute;
   clip: rect(1px, 1px, 1px, 1px);
   padding: 0;
@@ -62,53 +96,51 @@
   width: 1px;
   overflow: hidden;
 }
-#employee-div .employees-table tbody,
-#employee-div .employees-table tr,
-#employee-div .employees-table th,
-#employee-div .employees-table td {
+#employee-div .tableContainer .tableWrap .employees-table tbody,
+#employee-div .tableContainer .tableWrap .employees-table tr,
+#employee-div .tableContainer .tableWrap .employees-table th,
+#employee-div .tableContainer .tableWrap .employees-table td {
   display: block;
   padding: 0;
   text-align: left;
   white-space: normal;
 }
-#employee-div .employees-table tbody {
+#employee-div .tableContainer .tableWrap .employees-table tbody {
   position: relative;
 }
-#employee-div .employees-table tbody #employee-searchBar {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -200px;
-  border-radius: 10px;
-  border: none;
-  box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
-  padding: 5px 10px 5px 10px;
-}
-#employee-div .employees-table tbody .pagination {
-  position: absolute;
-  bottom: -80px;
-  width: 100%;
-  text-align: center;
-  color: #fff;
-}
-#employee-div .employees-table tbody tr {
+#employee-div .tableContainer .tableWrap .employees-table tbody tr {
   margin-bottom: 16px;
   border: 1px solid rgb(134, 188, 37);
   background-color: rgb(255, 255, 255);
 }
-#employee-div .employees-table td {
+#employee-div .tableContainer .tableWrap .employees-table td {
   padding: 10px;
   text-align: right;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
-#employee-div .employees-table td:last-child {
+#employee-div .tableContainer .tableWrap .employees-table td:last-child {
   border-bottom: 0;
 }
-#employee-div .employees-table td[data-title]::before {
+#employee-div .tableContainer .tableWrap .employees-table td[data-title]::before {
   content: attr(data-title);
   float: left;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
+}
+#employee-div .tableContainer .tableWrap .pagination {
+  position: absolute;
+  bottom: -20px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+#employee-div .tableContainer .tableWrap .pagination button {
+  border-radius: 10px;
+  border: none;
+  box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
+  margin: 0 10px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -119,24 +151,33 @@
   #employee-div .searchButton {
     display: none;
   }
-  #employee-div .employees-table {
+  #employee-div .tableContainer .tableWrap .employee-table-length {
+    top: 200px;
+  }
+  #employee-div .tableContainer .tableWrap #employee-searchBar {
+    top: 160px;
+  }
+  #employee-div .tableContainer .tableWrap .table-info {
+    top: 200px;
+  }
+  #employee-div .tableContainer .tableWrap .employees-table {
     font-size: 16px;
     padding: 0;
     border-radius: unset;
   }
-  #employee-div .employees-table caption {
+  #employee-div .tableContainer .tableWrap .employees-table caption {
     padding: 50px;
     font-size: 48px;
     margin-bottom: 80px;
   }
-  #employee-div .employees-table thead {
+  #employee-div .tableContainer .tableWrap .employees-table thead {
     position: relative;
     clip: auto;
     height: auto;
     width: auto;
     overflow: visible;
   }
-  #employee-div .employees-table thead .listName {
+  #employee-div .tableContainer .tableWrap .employees-table thead .listName {
     background-color: rgb(38, 137, 13);
     border: 1px solid rgb(134, 188, 37);
     font-weight: normal;
@@ -145,47 +186,49 @@
     padding: 10px;
     cursor: pointer;
   }
-  #employee-div .employees-table thead .listName.is-active.asc::after {
+  #employee-div .tableContainer .tableWrap .employees-table thead .listName.is-active.asc::after {
     content: " ↓";
   }
-  #employee-div .employees-table thead .listName.is-active.desc::after {
+  #employee-div .tableContainer .tableWrap .employees-table thead .listName.is-active.desc::after {
     content: " ↑";
   }
-  #employee-div .employees-table thead .listName.not-active::after {
+  #employee-div .tableContainer .tableWrap .employees-table thead .listName.not-active::after {
     content: " ⇅";
     opacity: 0.4;
   }
-  #employee-div .employees-table tbody {
+  #employee-div .tableContainer .tableWrap .employees-table tbody {
     display: table-row-group;
   }
-  #employee-div .employees-table tbody #employee-searchBar {
-    top: -130px;
-  }
-  #employee-div .employees-table tbody .pagination {
-    bottom: -50px;
-  }
-  #employee-div .employees-table tbody td {
+  #employee-div .tableContainer .tableWrap .employees-table tbody td {
     text-align: center;
     border-left: 1px solid rgb(134, 188, 37);
     border-bottom: 1px solid rgb(134, 188, 37);
   }
-  #employee-div .employees-table tbody td:last-child {
+  #employee-div .tableContainer .tableWrap .employees-table tbody td:last-child {
     border-right: 1px solid rgb(134, 188, 37);
     border-bottom: 1px solid rgb(134, 188, 37);
   }
-  #employee-div .employees-table tbody tr:nth-of-type(even) {
+  #employee-div .tableContainer .tableWrap .employees-table tbody tr:nth-of-type(even) {
     background-color: rgba(0, 143, 7, 0.12);
   }
-  #employee-div .employees-table tr {
+  #employee-div .tableContainer .tableWrap .employees-table tr {
     display: table-row;
   }
-  #employee-div .employees-table td,
-  #employee-div .employees-table th {
+  #employee-div .tableContainer .tableWrap .employees-table td,
+  #employee-div .tableContainer .tableWrap .employees-table th {
     display: table-cell;
     padding: 10px;
     vertical-align: middle;
   }
-  #employee-div .employees-table td[data-title]::before {
+  #employee-div .tableContainer .tableWrap .employees-table td[data-title]::before {
     content: none;
+  }
+  #employee-div .tableContainer .tableWrap .pagination {
+    bottom: -50px;
+  }
+}
+@media (min-width: 1024px) {
+  #employee-div .tableContainer .tableWrap .employees-table th {
+    white-space: nowrap;
   }
 }

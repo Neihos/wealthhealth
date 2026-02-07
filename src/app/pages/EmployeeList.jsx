@@ -10,8 +10,8 @@ export default function EmployeeList() {
   const [sortKey, setSortKey] = useState(null);
   const [sortDir, setSortDir] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
-  const PAGE_SIZE = 10;
-  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const [pageSize, setPageSize] = useState(10);
+  const startIndex = (currentPage - 1) * pageSize;
 
   // Define sort type for each sortable column
   const sortTypeByKey = {
@@ -51,7 +51,6 @@ export default function EmployeeList() {
       setSortDir("asc");
     }
   };
-
 
   // Compare two text values
   const compareText = (a, b) => {
@@ -97,10 +96,16 @@ export default function EmployeeList() {
   // Make pagination
   const pagedEmployees = sortedEmployees.slice(
     startIndex,
-    startIndex + PAGE_SIZE,
+    startIndex + pageSize,
   );
 
-  const totalPages = Math.ceil(sortedEmployees.length / PAGE_SIZE);
+  const totalPages = Math.ceil(sortedEmployees.length / pageSize);
+
+  // Total number of entries after filtering and sorting
+
+  const totalEntries = sortedEmployees.length;
+  const from = totalEntries === 0 ? 0 : startIndex + 1;
+  const to = Math.min(startIndex + pageSize, totalEntries);
 
   return (
     <div id="employee-div" className="container">
@@ -173,125 +178,153 @@ export default function EmployeeList() {
       </div>
 
       <div className="tableContainer">
-        <input
-          id="employee-searchBar"
-          type="text"
-          placeholder="Search by first or last name"
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setCurrentPage(1);
-          }}
-        />
+        <div className="tableWrap">
+          <label
+            htmlFor="employee-table-length"
+            className="employee-table-length"
+          >
+            Show&nbsp;
+            <select
+              id="employee-table-length"
+              name="employee-table_length"
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setCurrentPage(1);
+              }}
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+            &nbsp;entries
+          </label>
 
-        <table className="employees-table">
-          <caption>Current Employees</caption>
+          <input
+            id="employee-searchBar"
+            type="text"
+            placeholder="Search by first or last name"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
+          />
 
-          <thead>
-            <tr>
-              <TableTh
-                label="Last Name"
-                sortKeyName="lastName"
-                activeSortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-              />
-              <TableTh
-                label="First Name"
-                sortKeyName="firstName"
-                activeSortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-              />
-              <TableTh
-                label="Start Date"
-                sortKeyName="startDate"
-                activeSortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-              />
-              <TableTh
-                label="Departement"
-                sortKeyName="department"
-                activeSortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-              />
-              <TableTh
-                label="Date Of Birth"
-                sortKeyName="birthDate"
-                activeSortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-              />
-              <TableTh
-                label="Street"
-                sortKeyName="street"
-                activeSortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-              />
-              <TableTh
-                label="City"
-                sortKeyName="city"
-                activeSortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-              />
-              <TableTh
-                label="State"
-                sortKeyName="state"
-                activeSortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-              />
-              <TableTh
-                label="Zip Code"
-                sortKeyName="zipCode"
-                activeSortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-              />
-            </tr>
-          </thead>
+          <div className="table-info">
+            Showing {from} to {to} of {totalEntries} entries
+          </div>
 
-          <tbody>
-            {pagedEmployees.map((employee) => (
-              <tr key={employee.id}>
-                <td data-title="Last Name">{employee.lastName}</td>
-                <td data-title="First Name">{employee.firstName}</td>
-                <td data-title="Start Date">{employee.startDate}</td>
-                <td data-title="Department">{employee.department}</td>
-                <td data-title="Date of Birth">{employee.birthDate}</td>
-                <td data-title="Street">{employee.street}</td>
-                <td data-title="City">{employee.city}</td>
-                <td data-title="State">{employee.state}</td>
-                <td data-title="Zip Code">{employee.zipCode}</td>
+          <table className="employees-table">
+            <caption>Current Employees</caption>
+
+            <thead>
+              <tr>
+                <TableTh
+                  label="Last Name"
+                  sortKeyName="lastName"
+                  activeSortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <TableTh
+                  label="First Name"
+                  sortKeyName="firstName"
+                  activeSortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <TableTh
+                  label="Start Date"
+                  sortKeyName="startDate"
+                  activeSortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <TableTh
+                  label="Departement"
+                  sortKeyName="department"
+                  activeSortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <TableTh
+                  label="Date Of Birth"
+                  sortKeyName="birthDate"
+                  activeSortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <TableTh
+                  label="Street"
+                  sortKeyName="street"
+                  activeSortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <TableTh
+                  label="City"
+                  sortKeyName="city"
+                  activeSortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <TableTh
+                  label="State"
+                  sortKeyName="state"
+                  activeSortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <TableTh
+                  label="Zip Code"
+                  sortKeyName="zipCode"
+                  activeSortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
 
-        <div className="pagination">
-          <button
-            type="button"
-            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
+            <tbody>
+              {pagedEmployees.map((employee) => (
+                <tr key={employee.id}>
+                  <td data-title="Last Name">{employee.lastName}</td>
+                  <td data-title="First Name">{employee.firstName}</td>
+                  <td data-title="Start Date">{employee.startDate}</td>
+                  <td data-title="Department">{employee.department}</td>
+                  <td data-title="Date of Birth">{employee.birthDate}</td>
+                  <td data-title="Street">{employee.street}</td>
+                  <td data-title="City">{employee.city}</td>
+                  <td data-title="State">{employee.state}</td>
+                  <td data-title="Zip Code">{employee.zipCode}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-          <span>
-            Page {currentPage} / {totalPages || 1}
-          </span>
+          <div className="pagination">
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
 
-          <button
-            type="button"
-            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-            disabled={currentPage === totalPages || totalPages === 0}
-          >
-            Next
-          </button>
+            <span>
+              Page {currentPage} / {totalPages || 1}
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+              disabled={currentPage === totalPages || totalPages === 0}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>
