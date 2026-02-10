@@ -3,6 +3,7 @@ import { states } from "../../data/states";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../store/employeesSlice";
+import { Modal } from "react-simple-modal";
 
 export default function AddEmployee() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,9 @@ export default function AddEmployee() {
     state: "",
     zipCode: "",
   });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [lastEmployee, setLastEmployee] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +41,8 @@ export default function AddEmployee() {
 
     dispatch(addEmployee(employee));
 
+    setLastEmployee(employee);
+    setIsModalOpen(true);
     setFormData({
       firstName: "",
       lastName: "",
@@ -161,9 +167,24 @@ export default function AddEmployee() {
           </fieldset>
         </div>
 
-        <button type="submit" className="buttonAddEmployee">Save</button>
-
+        <button type="submit" className="buttonAddEmployee">
+          Save
+        </button>
       </form>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Employee created"
+      >
+        {lastEmployee && (
+          <p>
+            The employee <span>{lastEmployee.firstName} {lastEmployee.lastName}</span> has
+            been successfully created.
+          </p>
+        )}
+      </Modal>
+      
     </div>
   );
 }

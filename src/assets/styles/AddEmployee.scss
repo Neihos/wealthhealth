@@ -84,6 +84,27 @@
         4px 4px 5px 0px rgba(0, 0, 0, 0.1);
     }
   }
+
+  .modal-container {
+    margin: 0 20px;
+
+    h2 {
+      padding: 20px 0;
+      text-align: center;
+      color: green;
+    }
+
+    .modal-content{
+      text-align: center;
+      margin-bottom: 20px;
+
+      span {
+        color: green;
+        font-weight: 700;
+        text-decoration: underline
+      };
+    }
+  }
 }
 
 @media (min-width: 768px) {
